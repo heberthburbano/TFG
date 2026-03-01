@@ -48,7 +48,7 @@ body {
     background-color: var(--cream-bg);
     color: var(--text-dark);
     line-height: 1.7;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
     display: flex;
     min-height: 100vh;
     overflow-x: hidden;
@@ -100,9 +100,21 @@ body {
     margin-bottom: 3rem;
 }
 
-.logo-container img {
+.logo-container img.logo-img {
     height: 50px;
+    width: auto;
+    object-fit: contain;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    flex-shrink: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+.logo-text,
+.nav-group-title {
+    font-family: 'Outfit', system-ui, -apple-system, sans-serif;
 }
 
 .logo-text {

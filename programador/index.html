@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViraPedia | Manual del Programador 💻</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Outfit:wght@400;500;700;800;900&family=Fira+Code&display=swap"
+        rel="stylesheet">
+    <!-- Highlight.js for code syntax highlighting if needed later, but keeping basic styling for now -->
+</head>
+
+<body data-theme="light">
+
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="logo-container" style="margin-bottom: 0; gap: 0.5rem;">
+            <img src="../v.png" alt="Logo" class="logo-img">
+            <span class="logo-text" style="font-size: 1.2rem;">ViraPedia Dev</span>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+            <button class="theme-toggle" id="mobile-theme-toggle"><i class="fa fa-moon"></i></button>
+            <button class="hamburger" id="hamburger"><i class="fa fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-container">
+            <img src="../v.png" alt="ViraPedia Logo" class="logo-img">
+            <span class="logo-text">ViraPedia Dev</span>
+        </div>
+
+        <div class="mobile-search-container">
+            <i class="fa fa-search"></i>
+            <input type="text" placeholder="Buscar en docs..." id="mobile-search-input">
+        </div>
+
+        <nav>
+            <div class="nav-group">
+                <p class="nav-group-title">General</p>
+                <a href="#introduccion" class="nav-item active"><i class="fa fa-book"></i>Introducción y
+                    Arquitectura</a>
+                <a href="#setup" class="nav-item"><i class="fa fa-cogs"></i>Entorno y Setup</a>
+                <a href="#compilacion" class="nav-item"><i class="fa fa-rocket"></i>Guía de Compilación</a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-group-title">Backend y Datos</p>
+                <a href="#bbdd" class="nav-item"><i class="fa fa-database"></i>Estructura Firebase</a>
+                <a href="#pipelines" class="nav-item"><i class="fa fa-network-wired"></i>Pipelines y APIs</a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-group-title">Módulos Core</p>
+                <a href="#audio" class="nav-item"><i class="fa fa-wave-square"></i>Audio TFLite (BirdNET)</a>
+                <a href="#ia" class="nav-item"><i class="fa fa-brain"></i>IA y Vertex AI (Gemini)</a>
+                <a href="#mapas" class="nav-item"><i class="fa fa-map-location"></i>Mapas e Intents</a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Desktop Top Bar -->
+        <div class="top-bar">
+            <div class="search-container">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Buscar componentes, clases, funciones..." id="search-input">
+            </div>
+            <button class="theme-toggle" id="theme-toggle">
+                <i class="fa fa-moon"></i>
+            </button>
+        </div>
+
+        <!-- Section: Introduccion -->
+        <section id="introduccion" class="fade-in">
+            <h1>Manual Técnico de <span class="highlight">Aves de Pinto.</span></h1>
+            <p class="lead">Documentación viva e integral de la plataforma ornitológica, diseñada para ingenieros,
+                arquitectos y mantenedores. Cubre desde modelado de bases de datos NoSQL hasta integraciones de Edge AI.
+            </p>
+
+            <div class="alert alert-important">
+                <i class="fa fa-code-branch"></i>
+                <div>
+                    <strong>Arquitectura General:</strong> ViraPedia (Aves de Pinto) es una aplicación Android nativa
+                    desarrollada en Kotlin bajo Jetpack Compose, con Arquitectura MVI/MVVM, inyección de dependencias
+                    (Hilt) y asincronía basada en Coroutines y StateFlow.
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <i class="fa fa-layer-group"></i>
+                    <h3>Capa de Dominio</h3>
+                    <p>Contratos mediante <code>SpeciesRepository</code> y envoltorio genérico
+                        <code>Result&lt;T&gt;</code> para canalizar errores sin excepciones disruptivas.
+                    </p>
+                </div>
+                <div class="card">
+                    <i class="fa fa-server"></i>
+                    <h3>Capa de Datos</h3>
+                    <p>Mapeo resiliente asíncrono desde Firestore (`documentToSpecies`), evitando fallos en UI
+                        (NullPointerException) si un campo falta localmente.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: BBDD Firebase -->
+        <section id="bbdd" class="fade-in">
+            <h2>Estructura de <span class="highlight">Firebase NoSQL</span></h2>
+            <p>El ecosistema Backendless de Firebase almacena avistamientos, información biológica estática de las
+                especies y ficheros multimedia en Storage.</p>
+
+            <div class="card" style="margin-bottom: 2rem; border-left: 4px solid #FFCA28;">
+                <h3>Colecciones Principales</h3>
+                <ul>
+                    <li><code>users/{userId}</code>: Datos OAuth, estadísticas, y subcolección
+                        <code>discoveries/</code>.
+                    </li>
+                    <li><code>posts/{postId}</code>: Feed social (<code>latitude</code>, <code>longitude</code>,
+                        <code>visibility</code>, etc). Subcolección interna <code>likes/</code>.
+                    </li>
+                    <li><code>species/{speciesId}</code>: ViraPedia. Nombres en 5 idiomas (ES, EN, FR, DE, ZH),
+                        <code>diet</code>, <code>conservationStatus</code> y propiedades taxonómicas completas.
+                    </li>
+                </ul>
+                <div class="alert alert-warning" style="margin-top: 1rem;">
+                    <i class="fa fa-shield-halved"></i>
+                    <div>
+                        <strong>Reglas de Seguridad:</strong> La colección <code>species</code> es de solo lectura
+                        pública. El scraper no sobreescribe ciegamente para mantener la integridad relacional de la DB.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Pipelines -->
+        <section id="pipelines" class="fade-in">
+            <h2>Integración de <span class="highlight">APIs y Scrapers</span></h2>
+            <p>Scripts Python extraen y enriquecen la base de datos de manera automatizada. Herramientas críticas:</p>
+
+            <div class="grid">
+                <div class="card" style="border-left: 4px solid var(--sage-primary);">
+                    <h3>eBird, iNaturalist y Xeno-Canto</h3>
+                    <p><strong>eBird</strong> da la "semilla" (taxonomía base región ES-MD).
+                        <strong>iNaturalist</strong> añade las imágenes HD libres de Copyright (S3) y el estado de
+                        conservación. <strong>Xeno-Canto</strong> suma las <code>audioUrl</code> MP3 de cantos
+                        capturados en España.
+                    </p>
+                </div>
+                <div class="card" style="border-left: 4px solid var(--sage-primary);">
+                    <h3>Deep-Translator</h3>
+                    <p>Traduce asíncronamente (ES, FR, DE, ZH) empleando wrappers. Precisa inyectar <i>timeouts</i> de
+                        contingencia para evitar baneos de IP por masiva recurrencia sintáctica.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Audio TFLite -->
+        <section id="audio" class="fade-in">
+            <h2>Reconocimiento Asíncrono: <span class="highlight">BirdNET (Edge AI)</span></h2>
+            <p>Integración de TensorFlow Lite para identificar cantos 100% offline dentro de
+                <code>BirdNetAudioRecognizer.kt</code>.
+            </p>
+
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3>Flujo de Inferencia</h3>
+                <ol>
+                    <li>Grabación nativa de 3 segundos en <code>PCM_16BIT</code> a 48kHz (micrófono). Aislando el
+                        trabajo pesado en <code>Dispatchers.IO</code>.</li>
+                    <li>Acondicionamiento: Normalización pura `/ 32768.0f` cargando el bloque en un `FloatArray`.</li>
+                    <li>Inferencia en <code>birdnet.tflite</code> (~25MB), resolviendo el <code>argmax</code> de clases
+                        resultantes.</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Section: IA y Vertex -->
+        <section id="ia" class="fade-in">
+            <h2>Modelos Generativos: <span class="highlight">Gemini y Vertex AI</span></h2>
+            <p>Se aplica LLMs avanzados a nivel Backend (Python) y a nivel cliente Frontend (Kotlin).</p>
+
+            <div class="grid">
+                <div class="card" style="border-left: 4px solid #4A90E2;">
+                    <h3>Enriquecimiento Python</h3>
+                    <p><code>enrich_bird_details.py</code>: Prompt estricto (JSON output, <code>temperature=0.1</code>)
+                        a <strong>Gemini 2.5 Flash</strong> pidiendo dietas, peso y hábitat de forma masiva. Se manejan
+                        los reintentos vía Regex sobre los errores <code>429 RESOURCE_EXHAUSTED</code>.</p>
+                </div>
+                <div class="card" style="border-left: 4px solid #4A90E2;">
+                    <h3>Asistente Chat (Kotlin)</h3>
+                    <p>Inyección dinámica mediante `systemInstruction`. Obliga a devolver texto libre adornado con un
+                        JSON puro invisible oculto por Regex final. Además, usa `content { image(bitmap) }` habilitando
+                        un OCR natural para ornitología visual.</p>
+                </div>
+                <div class="card" style="border-left: 4px solid #4A90E2;">
+                    <h3>Multimodal Security Filter</h3>
+                    <p>El Feed bloquea spam subido por usuarios implementando configuraciones severas de moderación
+                        (<code>HarmBlockThreshold.LOW_AND_ABOVE</code>). Imágenes fuera del contexto aviar resultan en
+                        iteración nula de subida al servidor.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Mapas -->
+        <section id="mapas" class="fade-in">
+            <h2>Navegadores y <span class="highlight">Heatmaps</span></h2>
+            <p>Subsistemas de localización orientados al avistador ciudadano en la comunidad (<code>MapScreen.kt</code>,
+                <code>FeedScreens.kt</code>, etc).
+            </p>
+
+            <ul>
+                <li><strong>Capa GBIF (Global Biodiversity):</strong> Teselas transparentes estacionales
+                    (<code>UrlTileProvider</code>) repintadas dinámicamente inyectando mes y `taxonKey` para mostrar el
+                    flujo migratorio continental en la ViraPedia.</li>
+                <li><strong>Snapshots en Vivo:</strong> Monitorio asíncrono de Firestore
+                    (`postsCollection.addSnapshotListener`) de posts orgánicos en el transcurso de las últimas 5 horas y
+                    parseados inteligentemente descartando lats/longs nulos (0,0).</li>
+                <li><strong>Navegación Intents:</strong> Redirección delegada mediante esquema URI hacia Google Maps
+                    nativo (<code>google.navigation:q=lat,lng</code>), liberando de peso a la app en sí.</li>
+            </ul>
+        </section>
+
+        <!-- Section: Setup -->
+        <section id="setup" class="fade-in">
+            <h2>Configuración del <span class="highlight">Entorno</span></h2>
+            <p>El proyecto requiere un entorno específico debido a las múltiples llaves de APIs biológicas y al uso del
+                Edge AI (TFLite).</p>
+
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3>Requisitos del Sistema</h3>
+                <ul>
+                    <li><strong>IDE:</strong> Android Studio Jellyfish (o superior).</li>
+                    <li><strong>JDK:</strong> JDK 17 (Integrado en el proyecto).</li>
+                    <li><strong>SDK de Android:</strong> Mínimo API 24, Target SDK 34+.</li>
+                </ul>
+
+                <h3>Secretos y Variables (`local.properties`)</h3>
+                <p>El manifiesto (<code>AndroidManifest.xml</code>) requiere un token válido para el SDK de mapas que
+                    deberá inyectarse en el <code>local.properties</code>:</p>
+                <pre
+                    style="background: var(--surface-light); padding: 1rem; border-radius: 8px;">MAPS_API_KEY=AIzaSyTuClaveSecretaDeGoogleMaps...</pre>
+
+                <h3>Integración Firebase (`google-services.json`)</h3>
+                <p>Debes colocar el archivo <code>google-services.json</code> en la raíz del módulo <code>app/</code>
+                    para que el generador de Hilt/Firebase provea los repositorios de la base de datos (Firestore) y del
+                    sistema Auth.</p>
+            </div>
+        </section>
+
+        <!-- Section: Compilacion -->
+        <section id="compilacion" class="fade-in">
+            <h2>Guía de <span class="highlight">Compilación</span></h2>
+            <p>El compilador asume un acoplamiento puro con `gradlew` y módulos inyectados.</p>
+
+            <div class="grid">
+                <div class="card" style="border-left: 4px solid var(--sage-primary);">
+                    <h3>1. Limpieza y Reconstrucción</h3>
+                    <p>Tras inyectar los Secrets de las APIs y Firebase, ejecuta <code>./gradlew clean build</code> para
+                        forzar a Hilt a re-generar todos los grafos de dependencias Dagger subyacentes.</p>
+                </div>
+                <div class="card" style="border-left: 4px solid var(--sage-primary);">
+                    <h3>2. Ejecución (Debug)</h3>
+                    <p>Haz click en <strong>Run 'app'</strong>. Recomendamos encarecidamente testear la inferencia de
+                        Puntos de Navegación y Grabación `PCM_16BIT` en un dispositivo físico, ya que el emulador
+                        virtual de Android a menudo no simula las frecuencias del micrófono requeridas por BirdNET.</p>
+                </div>
+            </div>
+
+            <div class="alert alert-warning" style="margin-top: 1rem;">
+                <i class="fa fa-triangle-exclamation"></i>
+                <div>
+                    <strong>Cuidado con los Permisos:</strong> Asegúrate de que el manifiesto solicita activamente los
+                    permisos <code>RECORD_AUDIO</code>, <code>ACCESS_FINE_LOCATION</code> e <code>INTERNET</code> al
+                    ejecutar por primera vez.
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 ViraPedia Dev. Manual Técnico Oficial para Ingenieros del Poryecto Inte-Modular DAW/DAM.</p>
+        </footer>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>

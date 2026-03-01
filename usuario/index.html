@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViraPedia (Aves de Pinto) | Manual de Usuario 🦜</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Outfit:wght@400;500;700;800;900&family=Fira+Code&display=swap"
+        rel="stylesheet">
+</head>
+
+<body data-theme="light">
+
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="logo-container" style="margin-bottom: 0; gap: 0.5rem;">
+            <img src="../v.png" alt="Logo" class="logo-img">
+            <span class="logo-text" style="font-size: 1.2rem;">ViraPedia</span>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+            <button class="theme-toggle" id="mobile-theme-toggle"><i class="fa fa-moon"></i></button>
+            <button class="hamburger" id="hamburger"><i class="fa fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-container">
+            <img src="../v.png" alt="ViraPedia Logo" class="logo-img">
+            <span class="logo-text">ViraPedia</span>
+        </div>
+
+        <div class="mobile-search-container">
+            <i class="fa fa-search"></i>
+            <input type="text" placeholder="Buscar ayuda..." id="mobile-search-input">
+        </div>
+
+        <nav>
+            <div class="nav-group">
+                <p class="nav-group-title">Introducción</p>
+                <a href="#inicio" class="nav-item active"><i class="fa fa-house"></i>Bienvenidos a ViraPedia</a>
+                <a href="#primeros-pasos" class="nav-item"><i class="fa fa-power-off"></i>Primeros Pasos
+                    (Onboarding)</a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-group-title">Casos de Uso (Core Funcional)</p>
+                <a href="#enciclopedia" class="nav-item"><i class="fa fa-book-open"></i>La Enciclopedia Viva</a>
+                <a href="#identificacion-canto" class="nav-item"><i class="fa fa-microphone-lines"></i>Reconocimiento de
+                    Canto</a>
+                <a href="#asistente-chat" class="nav-item"><i class="fa fa-robot"></i>Asistente IA y Fotografía</a>
+                <a href="#mapas-comunidad" class="nav-item"><i class="fa fa-map-location-dot"></i>Mapas y Vuelo
+                    Social</a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-group-title">Soporte y Cuenta</p>
+                <a href="#resolucion" class="nav-item"><i class="fa fa-wrench"></i>Solución de Problemas (FAQ)</a>
+                <a href="#privacidad" class="nav-item"><i class="fa fa-shield-halved"></i>Configuración y Privacidad</a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Desktop Top Bar -->
+        <div class="top-bar">
+            <div class="search-container">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Buscar cómo hacer algo..." id="search-input">
+            </div>
+            <button class="theme-toggle" id="theme-toggle">
+                <i class="fa fa-moon"></i>
+            </button>
+        </div>
+
+        <!-- Section: Inicio -->
+        <section id="inicio" class="fade-in">
+            <h1>Bienvenido a <span class="highlight">ViraPedia (Aves de Pinto).</span></h1>
+            <p class="lead">ViraPedia no es solo una guía de campo; es un poderoso centro ornitológico de Inteligencia
+                Artificial que te acompaña en tus salidas. Con tecnología de vanguardia y una base de datos multilingüe
+                respaldada por las autoridades taxonómicas mundiales, llevarás a un experto en tu bolsillo.</p>
+
+            <div class="alert alert-important">
+                <i class="fa fa-circle-info"></i>
+                <div>
+                    <strong>Instrucciones Clarificadas:</strong> Este es tu manual práctico. Abarcaremos desde la
+                    consulta de rutas migratorias mundiales mediante GBIF hasta cómo utilizar los motores de
+                    reconocimiento de cantos (BirdNET Tensor) aunque estés en zonas sin cobertura.
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <i class="fa fa-mobile-screen-button"></i>
+                    <h3>Base de Datos Exhaustiva</h3>
+                    <p>Cuenta con más de 370 perfiles de fauna ibérica nutridos por iNaturalist y Xeno-Canto. Conocerás
+                        sus costumbres, envergaduras y dietas actualizadas en 5 idiomas (ES, EN, FR, DE, ZH).</p>
+                </div>
+                <div class="card">
+                    <i class="fa fa-dove"></i>
+                    <h3>Red Segura</h3>
+                    <p>Comparte qué especie estás viendo y dónde (siempre respetando la conservación) a través de
+                        nuestra red ciudadana moderada en tiempo real.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Primeros Pasos -->
+        <section id="primeros-pasos" class="fade-in">
+            <h2>Primeros Pasos <span class="highlight">(Getting Started)</span></h2>
+            <p>Empezar tu vuelo es cuestión de segundos. El sistema de Autenticación Centralizada Firebase asegura un
+                arranque seguro sin retener datos innecesarios.</p>
+
+            <div class="grid">
+                <div class="card" style="border-left: 4px solid var(--sage-primary);">
+                    <h3>1. Acceso a la Plataforma</h3>
+                    <p>Toca el botón de <strong>"Iniciar Sesión usando Google"</strong> (Sign in with Google). Te
+                        saltarás el pesado registro de correos manuales, ya que el sistema OAuth valida tu identidad
+                        cifrada internamente al instante. ¡Tus avistamientos se guardarán en la nube bajo tu perfil de
+                        inmediato!</p>
+                </div>
+                <div class="card" style="border-left: 4px solid var(--sage-primary);">
+                    <h3>2. Navegación Inferior Principal</h3>
+                    <p>En el pie de pantalla te acompañará siempre un menú con tres apartados core: **El Diccionario**
+                        (búsqueda de aves), **Identificación y Chat** (el núcleo de Inteligencia Artificial central) y
+                        **Mapa y Red Social** (la comunidad).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: ViraPedia Enciclopedia -->
+        <section id="enciclopedia" class="fade-in">
+            <h2>Casos de Uso: <span class="highlight">La Enciclopedia Viva</span></h2>
+            <p>La sección del Diccionario (ViraPedia) es una fuente científica con miles de datos organizados, sin
+                tiempos de carga gracias a nuestras descargas locales eficientes.</p>
+
+            <ul>
+                <li><strong>Listado de Búsqueda Flexible:</strong> En la vista principal del directorio de especies
+                    puedes buscar cualquier ave, y no solo por su nombre técnico; prueba a buscar familia, rareza o tipo
+                    de migración (estival o residente).</li>
+                <li><strong>Ficha de la Especie Analítica:</strong> Al tocar un ave, ingresarás a su tarjeta
+                    enriquecida. En base al idioma natural de tu teléfono (si eres turista francés se leerá en francés
+                    directamente), consultarás los parámetros medidos en centímetros, su peso, dimorfismo sexual y su
+                    dieta típica documentada extraída de bases biológicas.</li>
+                <li><strong>Archivos de Audio Nativos:</strong> Podrás reproducir con un Toque cantos limpios (cánticos
+                    y reclamos en España), procedentes de Xeno-Canto.</li>
+            </ul>
+
+            <div class="alert alert-warning">
+                <i class="fa fa-triangle-exclamation"></i>
+                <div>
+                    <strong>Cierre Robusto de Datos Nulos:</strong> Para garantizar fluidez, nuestro sistema de Mapeo
+                    asíncrono soporta perfiles de aves raros a los que estadísticamente les falte temporalmente su
+                    dieta, evitando que la aplicación sufra un cierre inesperado o (Crash).
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Grabar Cantos BirdNET -->
+        <section id="identificacion-canto" class="fade-in">
+            <h2>Casos de Uso: <span class="highlight">Reconocimiento Canto Inteligente</span></h2>
+            <p>A menudo el ave permanece oculta en el denso bosque. Para esto desarrollamos una de las herramientas más
+                importantes del observatorio.</p>
+
+            <div class="grid">
+                <div class="card" style="border-left: 4px solid #4A90E2;">
+                    <i class="fa fa-microphone-lines"></i>
+                    <h3>Sistema Analítico Offline (TFLite)</h3>
+                    <p>Navega al botón central y abre el modo "Escucha". Pulsa Grabar durante tres (3) segundos
+                        completos. Nuestro modelo matemático de IA interno (BirdNET de 25MB) procesará la onda de 16-bit
+                        PCM de tu micrófono <strong>sin enviar absolutamente nada a Internet</strong>. Te devolverá qué
+                        pájaro acaba de cantar al instante. Esto te garantiza <strong>100% de uso en altamontaña o
+                            llanuras donde careces totalmente de 3G/4G</strong>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: IA y Fotografía Gemini -->
+        <section id="asistente-chat" class="fade-in">
+            <h2>Casos de Uso: <span class="highlight">Chat Asistente y Fotografía</span></h2>
+            <p>¿Qué pasa si ves un pájaro o has logrado sacar una fotografía rápida? Entra a la sección central de
+                nuestro ChatBot conversacional de Google Gemini Flash 2.5.</p>
+
+            <ul>
+                <li><strong>Fotografía Crítica:</strong> Adjunta una foto desde la galería o desde la cámara que acabas
+                    de hacer sobre un pájaro no identificado. El modelo de Inteligencia Artificial observará
+                    multimodalmente el plumaje para decirte con certeza de qué ave ibérica se trata.</li>
+                <li><strong>Chat Dinámico de Lenguaje Natural:</strong> Si prefieres la texto, escríbele: <em>"¿Qué
+                        pájaro mediano tiene el pico negro y anda por el suelo de Pinto?"</em> El asistente te sugerirá
+                    nombres y te inyectará una tarjeta inteligente incrustada nativamente del Mirlo Común (Turdus
+                    Merula) de manera que puedas abrir su Wikipedia en un toque en vez de un texto gigante y tedioso.
+                </li>
+            </ul>
+        </section>
+
+        <!-- Section: Mapas y Feed Social -->
+        <section id="mapas-comunidad" class="fade-in">
+            <h2>Mapas Avanzados y <span class="highlight">Vuelo Social</span></h2>
+            <p>La aplicación provee el ecosistema ideal para avistadores que viajen juntos en una zona.</p>
+
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3>🗺️ Mapas Mensuales de Migración (Capa GBIF)</h3>
+                <p>Dentro de la Ficha del ave, encontrarás la Pestaña de Navegación "Distribución". Un renderizado
+                    mensual de teselas geográficas mundiales. Utiliza el <strong>Control Deslizante Analógico de
+                        Meses</strong> en la parte inferior de la pantalla para ver de colores vívidos por qué
+                    continentes exactos atraviesa el ave en invierno frente a verano. (Requiere conexión).</p>
+
+                <h3>👥 Tablero de Muro (Feed) Moderado y Navegador Activo</h3>
+                <p>Nuestra sección Mapa general y Feed en tiempo real agrupa los logs tomados en las últimas cinco. Pero
+                    hay condiciones:</p>
+                <ul>
+                    <li><strong>No se admiten fotos "Basura":</strong> Cada post es analizado asíncronamente en backend
+                        por otra IA, y mediante filtros de severidad (HarmCategory) si subes un Perro, comida selfie o
+                        insulto, la red de subida será cancelada salvaguardando a la comunidad ornitológica de spam
+                        molesto.</li>
+                    <li><strong>Google Vengo hacia Ti (Navigation Intents):</strong> ¿Es un ejemplar muy raro el
+                        reportado al lado tuya? En su post, presiona el botón "Ir Hacia Allí" y ViraPedia re-lanzará a
+                        tu Aplicación <strong>Google Maps externa con una ruta generada de Turn-By-Turn Navigation de
+                            coche/pie</strong>. ¡Sin pérdidas!</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section: Resolución de Problemas -->
+        <section id="resolucion" class="fade-in">
+            <h2>Solución de Problemas <span class="highlight">(FAQ / Troubleshooting)</span></h2>
+            <p>Los incidentes de campo ocurren, estas son las medidas auto-superables.</p>
+
+            <div class="grid">
+                <div class="card" style="border-left: 4px solid var(--error-red);">
+                    <h3>Fallo al Grabar (Cierre)</h3>
+                    <p>Si tocas el botón de la onda de Audio y te saca de la vista, es provocado por el deniego físico
+                        del permiso. Ve a <strong>Ajustes de tu Móvil > Aplicaciones > Aves de Pinto > Permisos y Activa
+                            "Micrófono"</strong>.</p>
+                </div>
+                <div class="card" style="border-left: 4px solid var(--error-red);">
+                    <h3>El Análisis de Canto predice cosas raras</h3>
+                    <p>El "Edge AI Tensorflow" necesita una onda "casi" limpia. Si en tus tres segundos grabas mucho
+                        viento frotando tu micrófono, la estática o las voces de transeúntes sobreescribirán las
+                        frecuencias sibilantes del pájaro devolviendo un falso pajarillo.</p>
+                </div>
+                <div class="card" style="border-left: 4px solid var(--error-red);">
+                    <h3>Mi publicación se ha borrado</h3>
+                    <p>Nuestra Moderadora rechazo un contenido no ornitológico (perros/gatos/selfies) desde el Feed.
+                        Recuerde el objetivo ético local.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Privacidad -->
+        <section id="privacidad" class="fade-in">
+            <h2>Configuración y <span class="highlight">Privacidad de Base de Datos</span></h2>
+            <p>La cúpula de protección NoSQL de Firestore nos permite operar garantizando que si el teléfono recae en
+                manos desconocidas tus avistamientos privados se quedan offline.</p>
+
+            <ul>
+                <li><strong>La API No Es Un Juego:</strong> Hemos implementado los algoritmos de carga en Firebase
+                    Firestore con Reglas de Seguridad estrictas. Para visualizar e importar la carga gigantesca diaria
+                    (más de miles de llamadas de fotos e idiomas procesadas mediante traductor simultáneo en horas
+                    nocturnas y enriquecimiento) debes loguearte, un "bot scraper" lo tiene denegado por Rules Cloud.
+                </li>
+                <li><strong>Sin Bloqueos de Limites (Rate Limits Tolerantes):</strong> La IA interna hace parones de 4
+                    segundos a 30 segundos (`time.sleep`) automáticamente frente a Google para asegurarnos que todos los
+                    datos biométricos de los 370 animales nunca te dejen un casillero nulo al leer Wikipedia.</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 ViraPedia - Trabajo Inter-Modular DAW/DAM. Manual basado en la Guía Arquitectónica del
+                Repositorio de Aplicaciones en Jetpack Compose, IA Edge (TFLite) y Servicios GenAI.</p>
+        </footer>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>

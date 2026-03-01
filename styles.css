@@ -156,7 +156,7 @@ body {
 }
 
 .nav-item.active {
-    background: linear-gradient(135deg, var(--sage-primary), var(--sage-primary-variant));
+    background: linear-gradient(135deg, var(--sage-primary), var(--sage-primary-dark));
     color: white;
     box-shadow: 0 4px 15px rgba(93, 138, 102, 0.3);
 }

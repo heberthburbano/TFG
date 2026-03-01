@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViraPedia | Manual de Usuario Definitivo 🦜</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=Fira+Code&display=swap"
+        rel="stylesheet">
+</head>
+
+<body data-theme="light">
+
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="logo-container" style="margin-bottom: 0; gap: 0.5rem;">
+            <img src="../../Documents/proyecto/TrabajoInterModular/icono pequeño sin fondo.png" alt="Logo">
+            <span class="logo-text" style="font-size: 1.2rem;">ViraPedia</span>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+            <button class="theme-toggle" id="mobile-theme-toggle"><i class="fa fa-moon"></i></button>
+            <button class="hamburger" id="hamburger"><i class="fa fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-container">
+            <img src="../../Documents/proyecto/TrabajoInterModular/icono.png" alt="ViraPedia Logo">
+            <span class="logo-text">ViraPedia</span>
+        </div>
+
+        <div class="mobile-search-container">
+            <i class="fa fa-search"></i>
+            <input type="text" placeholder="Buscar concepto o ave..." id="mobile-search-input">
+        </div>
+
+        <nav>
+            <div class="nav-group">
+                <p class="nav-group-title">Introducción</p>
+                <a href="#inicio" class="nav-item active"><i class="fa fa-house"></i>Inicio</a>
+                <a href="#filosofia" class="nav-item"><i class="fa fa-palette"></i>Filosofía de Diseño</a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-group-title">La Aplicación</p>
+                <a href="#enciclopedia" class="nav-item"><i class="fa fa-book-bird"></i>Enciclopedia</a>
+                <a href="#feed" class="nav-item"><i class="fa fa-users"></i>Vuelo Social</a>
+                <a href="#mapas" class="nav-item"><i class="fa fa-map-location-dot"></i>Mapas Interactivos</a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-group-title">Cerebro de IA</p>
+                <a href="#audio" class="nav-item"><i class="fa fa-microphone-lines"></i>BirdNET (Audio)</a>
+                <a href="#asistente" class="nav-item"><i class="fa fa-robot"></i>Asistente Gemini</a>
+            </div>
+
+            <div class="nav-group">
+                <p class="nav-group-title">Seguridad y Datos</p>
+                <a href="#seguridad" class="nav-item"><i class="fa fa-shield-halved"></i>Privacidad</a>
+                <a href="#tecnico" class="nav-item"><i class="fa fa-code"></i>Arquitectura</a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Desktop Top Bar -->
+        <div class="top-bar">
+            <div class="search-container">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Buscar concepto, API, funcionalidad..." id="search-input">
+            </div>
+            <button class="theme-toggle" id="theme-toggle">
+                <i class="fa fa-moon"></i>
+            </button>
+        </div>
+
+        <!-- Section: Inicio -->
+        <section id="inicio" class="fade-in">
+            <h1>Explora el mundo alado con <span class="highlight">ViraPedia.</span></h1>
+            <p class="lead">Bienvenido a la herramienta de referencia para la ornitología en la Comunidad de Madrid.
+                Diseñada cuidadosamente para entusiastas, fotógrafos de naturaleza y profesionales de la biología,
+                ViraPedia fusiona la potencia de la inteligencia artificial moderna con una comunidad activa de
+                observadores. Nuestra misión es promover la ciencia ciudadana, democratizando el acceso a información
+                taxonómica compleja de forma intuitiva y visualmente atractiva.</p>
+
+            <div class="alert alert-important">
+                <i class="fa fa-circle-info"></i>
+                <div>
+                    <strong>Manual Interactivo v2.0:</strong> Este documento evolutivo ha sido generado integrando la
+                    arquitectura técnica real de la aplicación con los estrictos estándares de usabilidad de Material
+                    Design 3, sirviendo como guía definitiva tanto para usuarios finales como para desarrolladores que
+                    deseen comprender nuestros procesos formativos y funcionales.
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <i class="fa fa-bolt"></i>
+                    <h3>Identificación Instantánea</h3>
+                    <p>Experimenta el reconocimiento de aves a un nuevo nivel. Mediante nuestro motor de convolución
+                        acústica y potentes algoritmos de visión artificial, puedes identificar especies en fracciones
+                        de segundo utilizando la cámara de tu teléfono o su micrófono, procesando la información
+                        directamente en tu dispositivo para mayor rapidez en entornos naturales sin red celular.</p>
+                </div>
+                <div class="card">
+                    <i class="fa fa-earth-americas"></i>
+                    <h3>Base de Datos Global Validada</h3>
+                    <p>ViraPedia asegura un rigor científico inigualable perfeccionando los datos taxonómicos. Cruzamos
+                        y validamos nuestros registros con autoridades ambientales globales como el Global Biodiversity
+                        Information Facility (GBIF), eBird y Wikipedia, para asegurar que los registros sean correctos,
+                        estandarizados y continuamente enriquecidos con descubrimientos recientes.</p>
+                </div>
+                <div class="card">
+                    <i class="fa fa-shield-check"></i>
+                    <h3>Comunidad y Moderación Proactiva</h3>
+                    <p>Fomentamos un ecosistema social sano utilizando analizadores visuales y de texto de Gemini.
+                        Nuestro pipeline de moderación bloquea automáticamente avistamientos irrelevantes (ej. objetos,
+                        mascotas domésticas) e impide el incumplimiento de las normas, garantizando que el entorno
+                        social (Feed) mantenga su propósito científico inmaculado.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Filosofía de Diseño -->
+        <section id="filosofia" class="fade-in">
+            <h2>Filosofía de Diseño: <span class="highlight">Sage System</span></h2>
+            <p>Una interfaz no debe interponerse entre el usuario y la naturaleza; debe enmarcarla. Bajo esta premisa
+                creamos el <strong>Sage Design System</strong>, un lenguaje visual que amplía las potentes guías de
+                usabilidad de <strong>Material Design 3 (M3)</strong> para ofrecer una interacción orgánica y de
+                contrastes altamente legibles que se adapte al uso rural y exterior.</p>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Paleta Orgánica y Adaptativa</h3>
+                    <p>Nuestro color característico dominante, el <strong>Sage Green (#5D8A66)</strong>, actúa como
+                        pilar central de la experiencia. Con fondos cálidos <strong>Cream (#F7F5F0)</strong> logramos
+                        minimizar la fatiga visual bajo la luz solar intensa. Esta paleta única simula elegantemente la
+                        textura de las libretas físicas de uso en el campo.</p>
+                </div>
+                <div class="card">
+                    <h3>Jerarquía Tipográfica Sofisticada</h3>
+                    <p>La legibilidad es crucial en el campo. Implementamos la familia <strong>Inter</strong> para
+                        proyectar datos descriptivos, fechas y ubicaciones con máxima nitidez. Adicionalmente usamos
+                        <strong>Fira Code</strong> para la presentación de esquemas lógicos, diferenciando elegantemente
+                        las métricas programáticas y datos extraídos en JSON del tono narrativo.
+                    </p>
+                </div>
+            </div>
+
+            <h3>UX Writing & Tono Comunicativo</h3>
+            <p>La ornitología a veces emplea un nivel académico denso. ViraPedia adapta su comunicación a un tono
+                divulgativo, acogedor pero siempre científicamente exacto, haciendo posible que usuarios novatos
+                comprendan conceptos como fenología local o dimorfismo sexual, apoyándolos en su aprendizaje progresivo
+                gracias al diseño UI.</p>
+        </section>
+
+        <!-- Section: Enciclopedia -->
+        <section id="enciclopedia" class="fade-in">
+            <h2>La ViraPedia: Enciclopedia Viva</h2>
+            <p>Lejos del concepto tradicional estático, nuestra enciclopedia es un núcleo orgánico de conocimiento sobre
+                más de 370 especies que se forma y expande en tiempo real impulsada por minería de datos multinivel.
+                Cuando identificas un ave, el sistema fusiona un compendio técnico al momento.</p>
+
+            <div class="code-container">
+                <div class="code-header"><span>Pipeline de Enriquecimiento</span><span>KOTLIN / PYTHON</span></div>
+                <code><span class="code-comment">// Flujo asíncrono para obtención de datos enciclopédicos con tolerancia a fallos</span>
+<span class="code-func">val</span> localizedName = species.<span class="code-func">localizedName</span>(currentLocale)
+<span class="code-keyword">if</span> (localizedName.<span class="code-func">isNullOrEmpty</span>()) {
+    <span class="code-comment">// Fallback automático: contactando Wikipedia API y bases EOL</span>
+    fetchFromScientificSources(species.scientificName, priority = High)
+}</code>
+            </div>
+
+            <div class="grid">
+                <div class="card" style="border-left: 4px solid var(--sage-primary);">
+                    <h3>Multilingüismo Inclusivo y Localización</h3>
+                    <p>Nuestra enciclopedia unifica los lenguajes adaptando todos sus contenidos a <strong>español,
+                            inglés, francés, alemán, italiano y chino</strong> automáticamente. Preservamos
+                        estrictamente el nombre científico (latín) en la raíz de la arquitectura de la base de datos
+                        para mantener intercompatibilidad funcional universal independientemente de la localización de
+                        la interfaz (UI).</p>
+                </div>
+                <div class="card" style="border-left: 4px solid var(--amber-rarity);">
+                    <h3>Metadatos y Taxonomía en Profundidad</h3>
+                    <p>Las fichas encapsulan mucho más que texto descriptivo. Añaden diagramas de fenología, información
+                        rigurosa sobre el estado de conservación clasificado por la <strong>UICN</strong> (Unión
+                        Internacional para la Conservación de la Naturaleza), y descripciones morfológicas elaboradas
+                        revisadas mediante estándares globales del prestigioso marco eBird.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Vuelo Social -->
+        <section id="feed" class="fade-in">
+            <h2>Vuelo Social y Feed Comunitario</h2>
+            <p>Descubrir un ave rara es asombroso; poder compartir su localización precisa en una red lo convierte en
+                ciencia. El Feed Comunitario (Vuelo Social) compone la línea de tiempo principal, donde exploradores
+                pueden visualizar fotografías, reportes y zonas geolocalizadas enriquecidas por personas y procesadas
+                por la IA para su viabilidad.</p>
+
+            <div class="alert alert-warning">
+                <i class="fa fa-triangle-exclamation"></i>
+                <div>
+                    <strong>Pipeline de Moderación Automatizado:</strong> Un escudo en tiempo real provisto por la
+                    clasificación avanzada de imágenes de Vertex AI. Toda subida de contenido es revisada
+                    silenciosamente antes de ser liberada. Fotografías no aviarias, publicaciones duplicadas o
+                    comportamientos de spam son restringidos de inmediato para preservar el interés ecosistémico puro.
+                </div>
+            </div>
+
+            <h3>Visibilidad Dinámica y Respeto a Privacidad</h3>
+            <p>Los avistamientos ofrecen dos visibilidades programadas: <strong>Publicación Global</strong> si se desea
+                contribuir plenamente con los patrones de densidad poblacional pública, y <strong>Avistamiento
+                    Privado</strong> si se prefiere ocultar de los radares colectivos y generar una lista de uso y
+                disfrute exclusivamente personal salvaguardando puntos neurálgicos como un domicilio.</p>
+        </section>
+
+        <!-- Section: Mapas Interactivos -->
+        <section id="mapas" class="fade-in">
+            <h2>Mapas Interactivos y Zonas Calientes</h2>
+            <p>Toda planificación técnica de un ornitólogo depende primariamente de la ubicación y temporalidad.
+                Incorporando la solidez de Google Maps, ViraPedia proporciona un lienzo geoespacial avanzado que detalla
+                la distribución natural detectada por nuestro censo comunitario.</p>
+
+            <div class="grid">
+                <div class="card">
+                    <i class="fa fa-map-pin"></i>
+                    <h3>Clustering (Agrupación) Geográfico Inteligente</h3>
+                    <p>Una afluencia de cientos de avistamientos solapados podría perjudicar significativamente el
+                        rendimiento y ensuciar la visualización del mapa. Nuestra tecnología implementa agrupación
+                        dinámica (clustering) que colapsa múltiples observaciones cercas unificada en un solo pin
+                        numerado expandible según se utilice la acción de zum in-out.</p>
+                </div>
+                <div class="card">
+                    <i class="fa fa-layer-group"></i>
+                    <h3>Filtros Paramétricos y Biológicos</h3>
+                    <p>Realiza cortes quirúrgicos a los datos del panel cartográfico para estudiar la presencia. Podrás
+                        restringir temporalmente marcadores visualizando únicamente lo visto "Esta Semana" o filtrando
+                        por nivel de rarezas para organizar verdaderas expediciones ("Twitching") a avistamientos
+                        verificados con un altísimo grado científico.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: BirdNET -->
+        <section id="audio" class="fade-in">
+            <h2>BirdNET: Identificación por Espectrograma Acústico</h2>
+            <p>Un porcentaje abrumador de identificaciones se lleva a cabo mediado por el oído, comúnmente en espesuras
+                boscosas donde la visión está penalizada. ViraPedia aborda esto mediante la encapsulación en código
+                nativo de las librerías punteras del sistema BirdNET de las Universidades de Chemnitz y Cornell.</p>
+
+            <div class="grid">
+                <div class="card">
+                    <i class="fa fa-signal"></i>
+                    <h3>Traduciendo el Canto a Imágenes Matemáticas</h3>
+                    <p>La aplicación graba muestras de audio a rangos de frecuencia optimizados (PCM 16-bit 48kHz,
+                        permitiendo una extracción fidedigna de ecos), convirtiendo este extracto sonoro localmente a un
+                        espectrograma bidimensional. Esta "huella dactilar de sonido" captura la intensidad en cada
+                        frecuencia y permite un aislamiento superior frente a ruidos urbanos típicos.</p>
+                </div>
+                <div class="card">
+                    <i class="fa fa-microchip"></i>
+                    <h3>Inferencia Neuronal Edge AI (Sin Red)</h3>
+                    <p>Sometemos tu dispositivo a ejecutar complejas cargas modelo IA mediante su NPU (Neural Processing
+                        Unit). Comprimido con TensorFlow Lite, los trozos audibles procesados no dependen jamás de datos
+                        satelitales ni conexión externa 4G/5G, ahorrando espectacularmente costos, latencia y drenaje de
+                        batería a lo largo de largas travesías sin conexión.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Asistente Gemini -->
+        <section id="asistente" class="fade-in">
+            <h2>Asistente Ornitológico Gemini 2.5</h2>
+            <p>Transforma la manera en que descubres e interactuas superando ampliamente a un motor de búsqueda
+                primitivo. La incorporación integral de la red de IA multimodal <strong>Gemini 2.5 Flash</strong>
+                habilita diálogos sofisticados, resolutivos y racionales con su entorno ecológico.</p>
+
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3>Capacidades y Operaciones Híbridas:</h3>
+                <ul>
+                    <li><strong>Diagnostico Morfológico de Imágenes:</strong> El poder visual es clave y asombroso.
+                        Someta al bot a la prueba subiendo fotografías donde el ave sea parcial, confusa o carezca de un
+                        patrón lumínico ideal. Gemini evaluará picos, diseño gular y proporciones indicando el probable
+                        taxón basado en marcadores visuales profundos.</li>
+                    <li><strong>Transición Automática de UI Mediante JSON:</strong> Esta funcionalidad imperceptible
+                        orquesta un puente entre la cháchara AI y botones orgánicos en la App. El chatbot recibe el
+                        permiso en su System prompt para insertar directrices codificadas JSON en segundo plano de tal
+                        forma que al encontrar tu especie, la aplicación transfiere su actividad nativa y renderiza la
+                        pantalla enciclopédica por encima del chat.</li>
+                    <li><strong>Sustento Científico Dinámico "Fallback":</strong> Frente a avistamientos de rarezas
+                        continentales no recogidas en la base IBÉRICA por defecto, Gemini realiza internamente consultas
+                        rápidas de salvamento hacia enciclopedias botánicas a través de internet logrando instruirse en
+                        milisegundos y evitar dejar al usuario sin guías informativas en ninguna situación mundial.</li>
+                </ul>
+            </div>
+
+            <div class="code-container">
+                <div class="code-header"><span>Prompt Architecture Structure</span><span>VERTEX AI SYSTEM INST.</span>
+                </div>
+                <code><span class="code-comment">"Sistema: Actúas puramente como bot ornitólogo 'Vira'. Rechazarás cortesmente peticiones fuera de tu rol botánico/científico de forma amable. Al reconocer la foto del ave subida por el humano emitirás obligatoriamente y parseado el payload oculto '[CMD_NAV: ID]' garantizando la renderización nativa de UI en Android UI-Thread..."</span></code>
+            </div>
+        </section>
+
+        <!-- Section: Seguridad -->
+        <section id="seguridad" class="fade-in">
+            <h2>Privacidad de Datos e Infraestructura Zero-Breach</h2>
+            <p>Cuando millones de puntos con coordenadas exactas sobre ecosistemas biológicos mundiales comienzan a
+                acumularse, surgen requerimientos de seguridad y anonimización de altísimo grado. Salvaguardar la
+                autenticidad e integridad biológica de estos repositorios centralizados marca la diferencia frente a
+                filtraciones.</p>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Autenticación OAuth 2.0 y Protocolos JWT</h3>
+                    <p>Dejamos en mano de <strong>Google Firebase Auth</strong> el cifrado de registro, incorporando
+                        mecanismos seguros de Single Sign-On. Tu contraseña está blindada, y nuestros servidores
+                        únicamente operan con tokens dinámicos JWT validados temporalmente, impidiendo ataques de fuerza
+                        bruta al portal.</p>
+                </div>
+                <div class="card">
+                    <h3>Firestore Security Rules Strict Mode</h3>
+                    <p>Las defensas no residen en ocultar botones; se implementizan en el Backend. Mediante sólidas
+                        reglas Firestore parametrizadas por nodo de datos, los registros de escritura y manipulación son
+                        denegados por defecto de manera condicional (exceptuando la comparativa y pertenencia
+                        indubitable al User-Access-UID), de forma que toda alteración ilegítima sea truncada y loggeada
+                        por el Backend Engine.</p>
+                </div>
+                <div class="card">
+                    <h3>Ofuscación de Ubicación (Protector de Ecosistemas)</h3>
+                    <p>La geolocalización es la fortaleza de ViraPedia y puede ser el punto débil de las especies
+                        sensibles publicadas; El furor social ha desencadenado históricamente estragos naturales y
+                        furtivismo al indicar nidos en especies raras. Abordamos la mitigación habilitando
+                        enmascaramiento dinámico para ofuscar coordenadas numéricas concretas hacia un radio estocástico
+                        superior de seguridad general para reportes de ejemplares en zonas calientes de cría.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Arquitectura -->
+        <section id="tecnico" class="fade-in">
+            <h2>Arquitectura Técnica y Código Limpio para Android</h2>
+            <p>Diseñada rigurosamente para el largo plazo, el repositorio se estructura mediante marcos modulares MVVM,
+                y el indispensable Clean Architecture (Arquitectura Limpia). El proyecto expone unos cimientos estables
+                para asimilar evoluciones constantes.</p>
+            <ul>
+                <li><strong>Capa UI Dinámica y Estado Inmutable:</strong> La transición global de XML clásico al
+                    paradigma UI declarativo <strong>Jetpack Compose</strong> habilita experiencias ricas e instantáneas
+                    con StateFlow de corrutinas que manejan asincroníamente la retención de rotaciones y ciclo de vida
+                    (Activity/Fragment Lifecycle), simplificando notablemente la escalabilidad en pantallas asimétricas
+                    y complejas.</li>
+                <li><strong>Aislamiento Total del Dominio y Reglas Comerciales:</strong> Todo el cerebro, reglas y
+                    combinaciones lógicas del bot yacen concentradas en su particular capa "Domain". Empaquetado en
+                    flujos interactivos de Interactors (UseCases), lo que garantiza aislamiento agnóstico del ecosistema
+                    externo permitiendo comprobaciones UnitTesting perfectas.</li>
+                <li><strong>Librerías, Repositorios e Inyección de Dependencias (DI):</strong> La arquitectura de
+                    control centraliza datos y peticiones HTTP o Firebase offline a través del Repository Pattern. A su
+                    vez, todos estos componentes transaccionales son inyectados y gestionados con la máxima pureza
+                    sintáctica provista por el framework estructural robusto Dagger Hilt de Google, logrando componentes
+                    de ciclo de vida enraizados e inyecciones de interfaces asombrosamente eficientes.</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 ViraPedia - Trabajo Inter-Modular DAW/DAM. Desarrollado con ❤️ para los amantes de las aves.
+            </p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -474,6 +474,17 @@ code {
     transform: translateY(0);
 }
 
+/* --- Screenshots --- */
+.screenshot-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: var(--shadow-soft);
+    margin: 1.5rem auto;
+    border: 1px solid var(--sand-accent);
+    display: block;
+}
+
 /* --- Mobile Responsiveness --- */
 
 @media (max-width: 1024px) {

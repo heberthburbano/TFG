@@ -474,15 +474,58 @@ code {
     transform: translateY(0);
 }
 
-/* --- Screenshots --- */
+/* --- Screenshots & Phone Mockup --- */
+.screenshot-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 3rem 0;
+    background: radial-gradient(circle, rgba(93, 138, 102, 0.05) 0%, transparent 70%);
+    padding: 2rem 0;
+    border-radius: 30px;
+}
+
+.phone-mockup {
+    position: relative;
+    width: 280px;
+    height: 580px;
+    background: #000;
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), 0 0 0 2px #333;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Speaker/Notch area */
+.phone-mockup::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 25px;
+    background: #000;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    z-index: 10;
+}
+
 .screenshot-img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: var(--shadow-soft);
-    margin: 1.5rem auto;
-    border: 1px solid var(--sand-accent);
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    object-fit: cover;
     display: block;
+    background: #fff;
+}
+
+.screenshot-img:hover {
+    transform: none;
+    /* Disable hover scale inside mockup for stability */
 }
 
 /* --- Mobile Responsiveness --- */
@@ -536,8 +579,20 @@ code {
     }
 
     h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         margin-top: 3rem;
+        line-height: 1.3;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    h2 span.highlight {
+        display: block;
+    }
+
+    h2::after {
+        width: 100%;
+        margin-top: 0.5rem;
     }
 
     h3 {
@@ -561,6 +616,27 @@ code {
     }
 
     .card {
-        padding: 1.5rem;
+        padding: 1.5rem 1rem;
+    }
+
+    .screenshot-wrapper {
+        margin: 1.5rem 0;
+        padding: 1rem 0;
+    }
+
+    .phone-mockup {
+        width: 220px;
+        height: 450px;
+        border-radius: 30px;
+        padding: 8px;
+    }
+
+    .phone-mockup::after {
+        width: 80px;
+        height: 18px;
+    }
+
+    .screenshot-img {
+        border-radius: 22px;
     }
 }

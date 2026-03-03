@@ -10,7 +10,49 @@
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Outfit:wght@400;500;700;800;900&family=Fira+Code&display=swap"
         rel="stylesheet">
-    <!-- Highlight.js for code syntax highlighting if needed later, but keeping basic styling for now -->
+    <!-- Highlight.js for code syntax highlighting -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/kotlin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        /* Mobile responsive code blocks */
+        pre {
+            background: #1a1b26;
+            /* Tokyo Night background */
+            border-radius: 12px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        pre code {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            pre {
+                padding: 1.25rem 1rem;
+                border-radius: 0;
+                margin: 1.5rem -1rem;
+                /* Bleed to the edge of the card */
+                border-left: none;
+                border-right: none;
+            }
+
+            pre code {
+                font-size: 0.75rem;
+                /* Smaller font on mobile */
+                line-height: 1.5;
+            }
+        }
+    </style>
 </head>
 
 <body data-theme="light">
@@ -92,20 +134,32 @@
                 </div>
             </div>
 
-            <div class="grid">
-                <div class="card">
-                    <i class="fa fa-layer-group"></i>
-                    <h3>Capa de Dominio</h3>
-                    <p>Contratos mediante <code>SpeciesRepository</code> y envoltorio genérico
-                        <code>Result&lt;T&gt;</code> para canalizar errores sin excepciones disruptivas.
-                    </p>
-                </div>
-                <div class="card">
-                    <i class="fa fa-server"></i>
-                    <h3>Capa de Datos</h3>
-                    <p>Mapeo resiliente asíncrono desde Firestore (`documentToSpecies`), evitando fallos en UI
-                        (NullPointerException) si un campo falta localmente.</p>
-                </div>
+            <div class="card" style="margin-bottom: 2rem;">
+                <i class="fa fa-layer-group"></i>
+                <h3>Capa de Dominio</h3>
+                <p>Contratos mediante <code>SpeciesRepository</code> y envoltorio genérico
+                    <code>Result&lt;T&gt;</code> para canalizar errores sin excepciones disruptivas.
+                </p>
+            </div>
+
+            <div class="card">
+                <i class="fa fa-server"></i>
+                <h3>Capa de Datos: Mapeo Resiliente</h3>
+                <p>Mapeo resiliente asíncrono desde Firestore (<code>documentToSpecies</code>), evitando fallos en
+                    UI
+                    (NullPointerException) si un campo falta localmente usando The Elvis Operator (<code>?:</code>).
+                </p>
+                <pre><code class="language-kotlin">private fun documentToSpecies(doc: DocumentSnapshot): Species {
+    val data = doc.data ?: return Species()
+    return Species(
+        id = doc.id,
+        scientificName = data["scientificName"] 
+            as? String ?: "",
+        rarezaMensual = data["rareza_mensual"] 
+            as? Map&lt;String, String&gt; ?: emptyMap(),
+        migratory = data["migratory"] as? Boolean ?: false
+    )
+}</code></pre>
             </div>
         </section>
 
@@ -158,6 +212,26 @@
                         contingencia para evitar baneos de IP por masiva recurrencia sintáctica.</p>
                 </div>
             </div>
+
+            <div class="card" style="border-left: 4px solid var(--sage-primary);">
+                <h3>Gestión de Rate Limits (Crawler Backend)</h3>
+                <p>Los scripts en Python deben controlar transaccionalmente el volumen de peticiones por segundo.
+                    Implementación crítica de extracciones Regex para calcular tiempos de espera dinámicos al
+                    enfrentar códigos <code>429 RESOURCE_EXHAUSTED</code> en la API.</p>
+                <pre><code class="language-python">except Exception as e:
+    error_msg = str(e)
+    # 429 Error: Servidor saturado
+    if "429" in error_msg or "RESOURCE_EXHAUSTED" in error_msg:
+        delay = 30
+        match = re.search(r'retry in (\d+\.?\d*)s', error_msg.lower())
+        if match:
+            delay = float(match.group(1)) + 1
+        
+        print(f" [!] Rate limit. Wait {delay:.1f}s...")
+        time.sleep(delay)
+    else:
+        return None</code></pre>
+            </div>
         </section>
 
         <!-- Section: Audio TFLite -->
@@ -172,17 +246,57 @@
                 <ol>
                     <li>Grabación nativa de 3 segundos en <code>PCM_16BIT</code> a 48kHz (micrófono). Aislando el
                         trabajo pesado en <code>Dispatchers.IO</code>.</li>
-                    <li>Acondicionamiento: Normalización pura `/ 32768.0f` cargando el bloque en un `FloatArray`.</li>
+                    <li>Acondicionamiento: Normalización pura <code>/ 32768.0f</code> cargando el bloque en un
+                        <code>FloatArray</code>.
+                    </li>
                     <li>Inferencia en <code>birdnet.tflite</code> (~25MB), resolviendo el <code>argmax</code> de clases
                         resultantes.</li>
                 </ol>
+                <pre><code class="language-kotlin">suspend fun startRecordingAndAnalyze(ctx: Context): Result&lt;String&gt; = 
+    withContext(Dispatchers.IO) {
+    
+    // 1. Raw Microphone recording
+    val pcmData = ShortArray(requiredSamples)
+    
+    // 2. Normalization for TFLite Engine
+    val inputFloatArray = FloatArray(requiredSamples)
+    for (i in pcmData.indices) {
+        inputFloatArray[i] = pcmData[i] / 32768.0f
+    }
+    
+    // 3. Tensor Execution (Edge AI)
+    interpreter!!.run(arrayOf(inputFloatArray), outputArray)
+    val probabilities = outputArray[0]
+}</code></pre>
             </div>
         </section>
 
         <!-- Section: IA y Vertex -->
         <section id="ia" class="fade-in">
             <h2>Modelos Generativos: <span class="highlight">Gemini y Vertex AI</span></h2>
-            <p>Se aplica LLMs avanzados a nivel Backend (Python) y a nivel cliente Frontend (Kotlin).</p>
+            <p class="lead">Integración de LLMs avanzados a nivel Backend (Python) y a nivel cliente Frontend (Kotlin).
+                La plataforma se apoya en el ecosistema <strong>Vertex AI</strong> por motivos arquitectónicos críticos.
+            </p>
+
+            <div class="card" style="margin-bottom: 2rem; border-left: 4px solid var(--sage-primary);">
+                <h3>¿Por qué Firebase Vertex AI en lugar de Google AI Studio?</h3>
+                <p>Aunque ambos utilizan el modelo "Gemini", el SDK utilizado dicta el nivel de producción de la app. La
+                    elección de Vertex AI se basa en tres pilares irrenunciables:</p>
+                <ol style="margin-left: 1.5rem; margin-bottom: 0.5rem; line-height: 1.7;">
+                    <li style="margin-bottom: 0.5rem;"><strong>Seguridad Extrema (Zero API Keys):</strong> Usar AI
+                        Studio directo requiere incrustar un <code>API_KEY</code> en el código cliente de Android,
+                        susceptible a piratería mediante ingeniería inversa (descompilación). El SDK de Firebase Vertex
+                        AI emplea <strong>App Check</strong>, validando criptográficamente que la petición proviene
+                        exclusivamente de una instalación legítima del móvil, sin exponer ningún secreto.</li>
+                    <li style="margin-bottom: 0.5rem;"><strong>Privacidad Enterprise:</strong> La capa gratuita de AI
+                        Studio se reserva derechos para entrenar modelos públicos con tus prompts. Vertex AI Cloud opera
+                        bajo acuerdos empresariales donde <strong>ningún dato se utiliza para entrenamiento
+                            externo</strong>, garantizando 100% privacidad de los avistamientos y reportes.</li>
+                    <li><strong>Sinergia con el Ecosistema:</strong> Al usar Firestore, Vertex AI nos permite gobernar
+                        cuotas, bloqueos de seguridad y métricas bajo el mismo panel unificado, acoplado al `userId` del
+                        módulo Auth nativamente.</li>
+                </ol>
+            </div>
 
             <div class="grid">
                 <div class="card" style="border-left: 4px solid #4A90E2;">
@@ -192,17 +306,34 @@
                         los reintentos vía Regex sobre los errores <code>429 RESOURCE_EXHAUSTED</code>.</p>
                 </div>
                 <div class="card" style="border-left: 4px solid #4A90E2;">
-                    <h3>Asistente Chat (Kotlin)</h3>
-                    <p>Inyección dinámica mediante `systemInstruction`. Obliga a devolver texto libre adornado con un
-                        JSON puro invisible oculto por Regex final. Además, usa `content { image(bitmap) }` habilitando
-                        un OCR natural para ornitología visual.</p>
-                </div>
-                <div class="card" style="border-left: 4px solid #4A90E2;">
                     <h3>Multimodal Security Filter</h3>
                     <p>El Feed bloquea spam subido por usuarios implementando configuraciones severas de moderación
                         (<code>HarmBlockThreshold.LOW_AND_ABOVE</code>). Imágenes fuera del contexto aviar resultan en
                         iteración nula de subida al servidor.</p>
                 </div>
+            </div>
+
+            <div class="card" style="border-left: 4px solid #4A90E2;">
+                <h3>Asistente Chat (Kotlin)</h3>
+                <p>Inyección dinámica mediante `systemInstruction`. Obliga a devolver texto libre adornado con un
+                    JSON puro invisible oculto por Regex final. Además, usa <code>content { image(bitmap) }</code>
+                    habilitando
+                    un OCR natural para ornitología visual.</p>
+                <pre><code class="language-kotlin">val generativeModel = Firebase.vertexAI.generativeModel(
+    modelName = "gemini-2.5-flash",
+    systemInstruction = content { 
+        text("...DEBES incluir un bloque JSON puro al final:\n" + 
+             "[{\"nombre\":\"X\", \"probabilidad\":95}]") 
+    }
+)
+
+// Multimodal Context Analysis
+val response = currentModel.generateContent(
+    content {
+        image(bitmap)
+        text(userText)
+    }
+)</code></pre>
             </div>
         </section>
 
@@ -282,7 +413,9 @@
         </section>
 
         <footer>
-            <p>&copy; 2026 ViraPedia Dev. Manual Técnico Oficial para Ingenieros del Poryecto Inte-Modular DAW/DAM.</p>
+            <p>&copy; 2026 ViraPedia - Trabajo Inter-Modular DAM. Manual basado en la Guía Arquitectónica del
+                Repositorio de Aplicaciones en Jetpack Compose, IA Edge (TFLite) y Servicios GenAI. Desarrollado por
+                Hebertt Burbano, Ángel Solís y Daniel Terroba.</p>
         </footer>
     </main>
 

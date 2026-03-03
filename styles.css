@@ -177,9 +177,10 @@ h4,
 
 .main-content {
     margin-left: var(--sidebar-width);
-    flex: 1;
-    padding: 5rem 12% 10rem 12%;
+    width: calc(100% - var(--sidebar-width));
+    padding: 5rem 8% 10rem 8%;
     max-width: 1400px;
+    box-sizing: border-box;
 }
 
 .top-bar {
@@ -389,7 +390,12 @@ p {
     margin: 2.5rem 0;
     display: flex;
     gap: 1.5rem;
-    align-items: center;
+    align-items: flex-start;
+}
+
+.alert i {
+    font-size: 1.5rem;
+    margin-top: 0.25rem;
 }
 
 .alert-important {
@@ -437,11 +443,24 @@ p {
 
 code {
     font-family: 'Fira Code', 'Cascadia Code', monospace;
-    font-size: 0.9rem;
-    color: #e0e0e0;
+    font-size: 0.85em;
+    color: var(--sage-primary-dark);
+    background-color: var(--sand-accent);
+    padding: 0.15rem 0.3rem;
+    border-radius: 4px;
+    word-break: break-word;
+}
+
+[data-theme="dark"] code {
+    color: var(--sand-accent);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+pre code {
+    background-color: transparent !important;
+    padding: 0 !important;
+    color: inherit;
     display: block;
-    white-space: pre-wrap;
-    word-break: break-all;
 }
 
 .code-keyword {

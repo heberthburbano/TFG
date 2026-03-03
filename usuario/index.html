@@ -210,13 +210,14 @@
         <!-- Section: IA y Fotografía Gemini -->
         <section id="asistente-chat" class="fade-in">
             <h2>Casos de Uso: <span class="highlight">Chat Asistente y Fotografía</span></h2>
-            <p>¿Qué pasa si ves un pájaro o has logrado sacar una fotografía rápida? Entra a la sección central de
-                nuestro ChatBot conversacional de Google Gemini Flash 2.5.</p>
+            <p>¿Has logrado fotografiar un ave pero no sabes cuál es? Entra a la sección central tocando el
+                <strong>icono de la cámara</strong> para consultar a nuestro experto IA integrado.
+            </p>
 
             <ul>
-                <li><strong>Fotografía Crítica:</strong> Adjunta una foto desde la galería o desde la cámara que acabas
-                    de hacer sobre un pájaro no identificado. El modelo de Inteligencia Artificial observará
-                    multimodalmente el plumaje para decirte con certeza de qué ave ibérica se trata.
+                <li><strong>Identificación Fotográfica Precisa:</strong> Adjunta una foto desde tu galería o toma una
+                    nueva. El Asistente IA de ViraPedia analizará las características del plumaje, el pico y la forma
+                    para decirte de qué ave se trata.
                     <div class="screenshot-wrapper">
                         <div class="phone-mockup">
                             <img src="../capturas/usuario/chat_bot_multiModal.jpg"
@@ -224,10 +225,10 @@
                         </div>
                     </div>
                 </li>
-                <li><strong>Chat Dinámico de Lenguaje Natural:</strong> Si prefieres el texto, escríbele: <em>"¿Qué
-                        pájaro mediano tiene el pico negro y anda por el suelo de Pinto?"</em> El asistente te sugerirá
-                    nombres y te inyectará una tarjeta inteligente incrustada nativamente del Mirlo Común (Turdus
-                    Merula) de manera que puedas abrir su Wikipedia en un toque en vez de un texto gigante y tedioso.
+                <li><strong>Resultados Estructurados y Conectados:</strong> ViraPedia ya no solo te da una parrafada de
+                    texto. El sistema extrae inteligentemente la información del pájaro identificado y te presenta una
+                    <strong>tarjeta de coincidencia interactiva</strong>. Con un solo toque en "Saber más", saltarás
+                    directamente a su ficha técnica completa en el diccionario o a su Wikipedia.
                 </li>
             </ul>
         </section>
@@ -262,58 +263,76 @@
                         reportado al lado tuya? En su post, presiona el botón "Ir Hacia Allí" y ViraPedia re-lanzará a
                         tu Aplicación <strong>Google Maps externa con una ruta generada de Turn-By-Turn Navigation de
                             coche/pie</strong>. ¡Sin pérdidas!</li>
+                    <li><strong>Interacción Social (Pluma de Me Gusta):</strong> Reconoce el mérito de otros
+                        observadores tocando el <strong>icono de la Pluma</strong> en sus publicaciones. Nuestro sistema
+                        registra tu validación en tiempo real.</li>
+                </ul>
+            </div>
+
+            <div class="card" style="border-left: 4px solid var(--sage-primary-dark);">
+                <h3>🔒 Chat Privado Cifrado (E2EE)</h3>
+                <p>¿Has conocido a un compañero de avistamiento en el muro y quieres planear una salida? ViraPedia
+                    incluye un sistema de mensajería privada de vanguardia.</p>
+                <ul>
+                    <li><strong>Cifrado de Extremo a Extremo:</strong> Tus mensajes viajan blindados. Nadie, ni siquiera
+                        los administradores de la aplicación, pueden leer el contenido de tu chat.</li>
+                    <li><strong>Conversaciones Directas:</strong> Inicia un chat tocando el perfil de un usuario en el
+                        Feed. Solo podréis acceder a este canal privado vosotros dos.</li>
                 </ul>
             </div>
         </section>
 
         <!-- Section: Resolución de Problemas -->
         <section id="resolucion" class="fade-in">
-            <h2>Solución de Problemas <span class="highlight">(FAQ / Troubleshooting)</span></h2>
-            <p>Los incidentes de campo ocurren, estas son las medidas auto-superables.</p>
+            <h2>Solución de Problemas <span class="highlight">(Preguntas Frecuentes)</span></h2>
+            <p>Aquí tienes soluciones rápidas a los inconvenientes más comunes durante tus rutas.</p>
 
             <div class="grid">
                 <div class="card" style="border-left: 4px solid var(--error-red);">
-                    <h3>Fallo al Grabar (Cierre)</h3>
-                    <p>Si tocas el botón de la onda de Audio y te saca de la vista, es provocado por el deniego físico
-                        del permiso. Ve a <strong>Ajustes de tu Móvil > Aplicaciones > Aves de Pinto > Permisos y Activa
-                            "Micrófono"</strong>.</p>
+                    <h3>La grabadora se cierra sola</h3>
+                    <p>Si al tocar el botón de "Escuchar Canto" la app vuelve a la pantalla anterior, significa que no
+                        has concedido permisos de micrófono. Ve a <strong>Ajustes de tu Móvil > Aplicaciones > ViraPedia
+                            > Permisos y Activa "Micrófono"</strong>.</p>
                 </div>
                 <div class="card" style="border-left: 4px solid var(--error-red);">
-                    <h3>El Análisis de Canto predice cosas raras</h3>
-                    <p>El "Edge AI Tensorflow" necesita una onda "casi" limpia. Si en tus tres segundos grabas mucho
-                        viento frotando tu micrófono, la estática o las voces de transeúntes sobreescribirán las
-                        frecuencias sibilantes del pájaro devolviendo un falso pajarillo.</p>
+                    <h3>La IA no adivina el pájaro</h3>
+                    <p>La precisión de ViraPedia depende de los datos que le des. Si en la grabación de audio hay mucho
+                        viento o gente hablando, o si la fotografía sale borrosa o a contraluz, el asistente te dará un
+                        resultado genérico (ej: "Passeriforme"). ¡Intenta aislar el sonido o tomar otra foto!</p>
                 </div>
                 <div class="card" style="border-left: 4px solid var(--error-red);">
-                    <h3>Mi publicación se ha borrado</h3>
-                    <p>Nuestra Moderadora rechazo un contenido no ornitológico (perros/gatos/selfies) desde el Feed.
-                        Recuerde el objetivo ético local.</p>
+                    <h3>Mi publicación no aparece en el mapa</h3>
+                    <p>Nuestra comunidad mantiene el enfoque ornitológico. Si nuestra Inteligencia Artificial detecta
+                        que tu foto contiene rostros, mascotas u objetos que no son aves, la publicación no se subirá.
+                        Asegúrate de enfocar bien a la especie.</p>
                 </div>
             </div>
         </section>
 
         <!-- Section: Privacidad -->
         <section id="privacidad" class="fade-in">
-            <h2>Configuración y <span class="highlight">Privacidad de Base de Datos</span></h2>
-            <p>La cúpula de protección NoSQL de Firestore nos permite operar garantizando que si el teléfono recae en
-                manos desconocidas tus avistamientos privados se quedan offline.</p>
+            <h2>Configuración y <span class="highlight">Privacidad de tu Cuenta</span></h2>
+            <p>En ViraPedia nos tomamos muy en serio que tus salidas al campo sean tuyas. Tu cuaderno de campo digital
+                está protegido por tecnología en la nube de nivel corporativo.</p>
 
             <ul>
-                <li><strong>La API No Es Un Juego:</strong> Hemos implementado los algoritmos de carga en Firebase
-                    Firestore con Reglas de Seguridad estrictas. Para visualizar e importar la carga gigantesca diaria
-                    (más de miles de llamadas de fotos e idiomas procesadas mediante traductor simultáneo en horas
-                    nocturnas y enriquecimiento) debes loguearte, un "bot scraper" lo tiene denegado por Rules Cloud.
+                <li><strong>Privacidad de Avistamientos:</strong> Por defecto, lo que registras en tu perfil es privado.
+                    Nadie sabrá dónde estás ni qué has visto a menos que decidas compartirlo activamente en el Feed
+                    Social de la Comunidad.</li>
+                <li><strong>Tus Datos Son Tuyos:</strong> No vendemos tu información. Además, si decides dejar de usar
+                    la aplicación, puedes acceder a los ajustes de tu perfil para <strong>eliminar tu cuenta y todos tus
+                        registros</strong> en un solo click, borrándose definitivamente de todos nuestros servidores.
                 </li>
-                <li><strong>Sin Bloqueos de Limites (Rate Limits Tolerantes):</strong> La IA interna hace parones de 4
-                    segundos a 30 segundos (<code>time.sleep</code>) automáticamente frente a Google para asegurarnos
-                    que todos los
-                    datos biométricos de los 370 animales nunca te dejen un casillero nulo al leer Wikipedia.</li>
+                <li><strong>Funcionamiento Offline Constante:</strong> Hemos diseñado la aplicación para que descargue
+                    las guías esenciales a tu teléfono. Si te quedas sin cobertura en plena montaña, la enciclopedia y
+                    el motor de reconocimiento de cantos seguirán funcionando perfectamente.</li>
             </ul>
         </section>
 
         <footer>
-            <p>&copy; 2026 ViraPedia - Trabajo Inter-Modular DAW/DAM. Manual basado en la Guía Arquitectónica del
-                Repositorio de Aplicaciones en Jetpack Compose, IA Edge (TFLite) y Servicios GenAI.</p>
+            <p>&copy; 2026 ViraPedia - Trabajo Inter-Modular DAM. Manual basado en la Guía Arquitectónica del
+                Repositorio de Aplicaciones en Jetpack Compose, IA Edge (TFLite) y Servicios GenAI. Desarrollado por
+                Hebertt Burbano, Ángel Solís y Daniel Terroba.</p>
         </footer>
     </main>
 

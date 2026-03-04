@@ -411,11 +411,13 @@ p {
 }
 
 [data-theme="dark"] .alert-important {
-    background: rgba(93, 138, 102, 0.1);
+    background: rgba(93, 138, 102, 0.15);
+    color: #a3d9ae;
 }
 
 [data-theme="dark"] .alert-warning {
-    background: rgba(217, 119, 6, 0.1);
+    background: rgba(217, 119, 6, 0.15);
+    color: #f7b731;
 }
 
 /* Code Blocks */
@@ -452,8 +454,8 @@ code {
 }
 
 [data-theme="dark"] code {
-    color: var(--sand-accent);
-    background-color: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+    background-color: #2a2d2a;
 }
 
 pre code {

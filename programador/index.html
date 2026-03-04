@@ -101,6 +101,8 @@
                 <a href="#audio" class="nav-item"><i class="fa fa-wave-square"></i>Audio TFLite (BirdNET)</a>
                 <a href="#ia" class="nav-item"><i class="fa fa-brain"></i>IA y Vertex AI (Gemini)</a>
                 <a href="#mapas" class="nav-item"><i class="fa fa-map-location"></i>Mapas e Intents</a>
+                <a href="#seguridad" class="nav-item" style="color: var(--sage-primary);"><i
+                        class="fa fa-lock"></i>Criptografía E2EE</a>
             </div>
         </nav>
     </aside>
@@ -298,19 +300,63 @@
                 </ol>
             </div>
 
-            <div class="grid">
-                <div class="card" style="border-left: 4px solid #4A90E2;">
-                    <h3>Enriquecimiento Python</h3>
-                    <p><code>enrich_bird_details.py</code>: Prompt estricto (JSON output, <code>temperature=0.1</code>)
-                        a <strong>Gemini 2.5 Flash</strong> pidiendo dietas, peso y hábitat de forma masiva. Se manejan
-                        los reintentos vía Regex sobre los errores <code>429 RESOURCE_EXHAUSTED</code>.</p>
-                </div>
-                <div class="card" style="border-left: 4px solid #4A90E2;">
-                    <h3>Multimodal Security Filter</h3>
-                    <p>El Feed bloquea spam subido por usuarios implementando configuraciones severas de moderación
-                        (<code>HarmBlockThreshold.LOW_AND_ABOVE</code>). Imágenes fuera del contexto aviar resultan en
-                        iteración nula de subida al servidor.</p>
-                </div>
+            <div class="card" style="margin-bottom: 2rem; border-left: 4px solid #4A90E2;">
+                <h3>Enriquecimiento Python (<code>enrich_bird_details.py</code>)</h3>
+                <p>Script encargado de poblar sistemáticamente la base de datos Firestore empleando <strong>Gemini 2.5
+                        Flash</strong> con un nivel estricto de determinismo (<code>temperature=0.1</code> y
+                    <code>response_mime_type="application/json"</code>). Sus cometidos principales son la extracción de
+                    parámetros biológicos (peso, hábitat, dimorfismo) y la traducción simultánea a 4 idiomas adicionales
+                    (ES, FR, DE, ZH) para todas las especies.
+                </p>
+
+                <h4 style="margin-top: 1rem; margin-bottom: 0.5rem; font-size: 1.1rem;">Prompt Estricto e Inyección de
+                    Esquema</h4>
+                <p>El núcleo de la petición impone a Gemini un formato de salida riguroso para asegurar que la inserción
+                    en Firestore no desestructure los documentos NoSQL existentes. El modelo recibe explícitamente la
+                    estructura del esquema esperado:</p>
+                <pre><code class="language-python">def ask_gemini_for_bird_data(clients, client_index, scientific_name, common_name):
+    prompt = f"""
+    Act as an authoritative international ornithologist and translator. 
+    Provide precise biological details and high-quality translations [...]
+    Return ONLY a valid JSON object matching this exact schema:
+    {{
+        "commonNameEs": "Nombre en español",
+        "diet": "Concise info in English",
+        "lengthCm": "e.g. '12-14 cm'",
+        # ... esquema JSON estructurado con todos los campos ...
+    }}
+    """
+    
+    # Generación de contenido forzando salida JSON pura
+    response = client.models.generate_content(
+        model='gemini-2.5-flash',
+        contents=prompt,
+        config=types.GenerateContentConfig(
+            response_mime_type="application/json",
+            temperature=0.1,
+        )
+    )</code></pre>
+
+                <h4 style="margin-top: 1rem; margin-bottom: 0.5rem; font-size: 1.1rem;">Rotación de API Keys y
+                    Resiliencia</h4>
+                <p>Para sortear la saturación de Rate Limits (HTTP 429), el código implementa un mecanismo de rotación
+                    ("Round-Robin") con múltiples <code>API_KEYS</code>. Al agotar la cuota de una cuenta de Google
+                    GenAI, pivota automáticamente a la siguiente clave de respaldo, logrando procesamientos masivos sin
+                    interrupciones.</p>
+                <pre><code class="language-python">        except Exception as e:
+            error_msg = str(e)
+            if "429" in error_msg or "RESOURCE_EXHAUSTED" in error_msg:
+                print(f"    [!] Key {current_idx} limited. Rotating...")
+                # Rotación Round-Robin a la siguiente clave funcional
+                current_idx = (current_idx + 1) % len(clients)
+                time.sleep(30) # Pausa de contingencia temporal</code></pre>
+            </div>
+
+            <div class="card" style="margin-bottom: 2rem; border-left: 4px solid #4A90E2;">
+                <h3>Multimodal Security Filter</h3>
+                <p>El Feed bloquea spam subido por usuarios implementando configuraciones severas de moderación
+                    (<code>HarmBlockThreshold.LOW_AND_ABOVE</code>). Imágenes fuera del contexto aviar resultan en
+                    iteración nula de subida al servidor.</p>
             </div>
 
             <div class="card" style="border-left: 4px solid #4A90E2;">
@@ -354,6 +400,76 @@ val response = currentModel.generateContent(
                 <li><strong>Navegación Intents:</strong> Redirección delegada mediante esquema URI hacia Google Maps
                     nativo (<code>google.navigation:q=lat,lng</code>), liberando de peso a la app en sí.</li>
             </ul>
+        </section>
+
+        <!-- Section: Seguridad -->
+        <section id="seguridad" class="fade-in">
+            <h2>Criptografía y <span class="highlight">Mensajería E2EE</span></h2>
+            <p class="lead">La mensajería uno-a-uno en ViraPedia está protegida mediante encriptación de extremo a
+                extremo (E2EE), garantizando que los servidores centrales (Firestore) actúen solo como intermediarios
+                ciegos.</p>
+
+            <div class="card" style="margin-bottom: 2rem; border-left: 4px solid var(--sage-primary);">
+                <h3>El Núcleo Criptográfico: <code>CryptoManager.kt</code></h3>
+                <p>Las claves se generan localmente en el dispositivo utilizando el algoritmo
+                    <strong>RSA/ECB/PKCS1Padding</strong>. La clave privada se custodia fuertemente encriptada mediante
+                    la librería de Google <code>androidx.security.crypto.EncryptedSharedPreferences</code> respaldada
+                    por una Master Key AES256_GCM almacenada en el hardware Android Keystore.</p>
+
+                <pre><code class="language-kotlin">fun encryptMessage(message: String, base64PublicKey: String): String {
+    val publicKey = getPublicKeyFromString(base64PublicKey)
+    val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
+    cipher.init(Cipher.ENCRYPT_MODE, publicKey)
+    val encryptedBytes = cipher.doFinal(message.toByteArray(Charsets.UTF_8))
+    return Base64.encodeToString(encryptedBytes, Base64.NO_WRAP)
+}
+
+fun decryptMessage(encryptedBase64Message: String): String {
+    // La clave privada nunca viaja por la red (Local-Only)
+    val privateKey = getMyPrivateKey() ?: throw IllegalStateException("Private key not found")
+    val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
+    cipher.init(Cipher.DECRYPT_MODE, privateKey)
+    val encryptedBytes = Base64.decode(encryptedBase64Message, Base64.NO_WRAP)
+    return String(cipher.doFinal(encryptedBytes), Charsets.UTF_8)
+}</code></pre>
+            </div>
+
+            <div class="grid">
+                <div class="card" style="border-left: 4px solid var(--sage-primary);">
+                    <h3>Doble Encriptación en Firestore</h3>
+                    <p>En <code>DirectMessageRepositoryImpl.kt</code>, cuando el usuario A envía un mensaje al usuario
+                        B, el texto se encripta dos veces por separado antes de realizar un Batch Write a la base de
+                        datos:</p>
+                    <ol style="margin-top: 0.5rem; margin-left: 1.5rem; line-height: 1.6;">
+                        <li><strong>Para el receptor:</strong> Se cifra usando la clave pública de B
+                            (<code>receiverPublicKey</code>).</li>
+                        <li><strong>Para el emisor (historial):</strong> Se cifra usando la clave pública de A
+                            (<code>senderPublicKey</code>), guardado en <code>senderCopyContent</code>.</li>
+                    </ol>
+                    <p style="margin-top: 0.5rem;">De esta manera, la base de datos Firebase solo almacena blobs de
+                        Base64 indescifrables.</p>
+                </div>
+
+                <div class="card" style="border-left: 4px solid var(--sage-primary);">
+                    <h3>Notificaciones On-The-Fly</h3>
+                    <p>Al recibir un Push de Firebase Cloud Messaging por parte del servidor, <code>FcmService.kt</code>
+                        se ejecuta en un Work Thread (sin abrir la UI de la app).</p>
+                    <p style="margin-top: 0.5rem;">Intercepta el <code>encryptedContent</code> que trae el JSON de la
+                        notificación, invoca transparentemente a <code>CryptoManager.decryptMessage()</code> local, y
+                        finalmente eleva una notificación en texto plano directamente al Notification Manager de Android
+                        nativo.</p>
+                </div>
+            </div>
+
+            <div class="alert alert-important" style="margin-top: 1rem; margin-bottom: 2rem;">
+                <i class="fa fa-key"></i>
+                <div>
+                    <strong>Key Escrow (Backup Seguro):</strong> Para evitar que el usuario pierda acceso permanente a
+                    su historial de chat multianual en caso de un formateo del terminal, <code>CryptoManager.kt</code>
+                    provee métodos de wraping AES (`getOrGenerateAesKey`, `wrapPrivateKey`). Las llaves envueltas se
+                    ligan al framework de Backups Nativos en la Nube de Android (<code>backup_rules.xml</code>).
+                </div>
+            </div>
         </section>
 
         <!-- Section: Setup -->
